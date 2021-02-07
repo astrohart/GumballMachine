@@ -1,4 +1,6 @@
-﻿namespace GumballMachine
+﻿using System;
+
+namespace GumballMachine
 {
    /// <summary>
    /// Represents a Gumball Machine.
@@ -33,6 +35,11 @@
       /// <summary>
       /// Entry point of the program.
       /// </summary>
-      public static void Main() { }
+      public static void Main()
+      {
+         // TODO: Add the program's statements here.
+
+         Console.ReadKey();
+      }
    }
 }
