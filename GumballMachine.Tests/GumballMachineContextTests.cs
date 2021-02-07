@@ -14,7 +14,7 @@ namespace GumballMachine.Tests
       [Test]
       public void Test_GumballMachine_WorksAsExpected_ForNormalUse()
       {
-         // TODO: Add test statements here.
+         // TODO: Add unit test statements here.
       }
    }
 }
