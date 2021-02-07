@@ -38,16 +38,6 @@ namespace GumballMachine
       public int State { get; set; }
 
       /// <summary>
-      /// Entry point of the program.
-      /// </summary>
-      public static void Main()
-      {
-         // TODO: Add the program's statements here.
-
-         Console.ReadKey();
-      }
-
-      /// <summary>
       /// Inserts a quarter into the gumball machine.
       /// </summary>
       public void InsertQuarter()
