@@ -21,6 +21,11 @@
       void InsertQuarter();
 
       /// <summary>
+      /// Refills the machine with more gumballs.
+      /// </summary>
+      void Refill();
+
+      /// <summary>
       /// Gets the representation of this state as a string.
       /// </summary>
       /// <returns>
