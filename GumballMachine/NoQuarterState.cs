@@ -23,13 +23,13 @@ namespace GumballMachine
       /// Called to dispense a gumball.
       /// </summary>
       public override void Dispense()
-         => throw new NotImplementedException();
+         => Console.WriteLine("You need to pay first!");
 
       /// <summary>
       /// Ejects a quarter from the gumball machine.
       /// </summary>
       public override void EjectQuarter()
-         => throw new NotImplementedException();
+         => Console.WriteLine("You haven't inserted a quarter.");
 
       /// <summary>
       /// Inserts a quarter into the gumball machine.
@@ -44,6 +44,6 @@ namespace GumballMachine
       /// Turns the crank of the gumball machine.
       /// </summary>
       public override void TurnCrank()
-         => throw new NotImplementedException();
+         => Console.WriteLine("You turned the crank but there is no quarter.");
    }
 }
