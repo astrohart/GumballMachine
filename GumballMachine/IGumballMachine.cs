@@ -1,4 +1,9 @@
 ﻿namespace GumballMachine
 {
-   public interface IGumballMachine { }
+   public interface IGumballMachine
+   {
+      void SetState(IState newState);
+
+      IState getHasQuarterState();
+   }
 }
