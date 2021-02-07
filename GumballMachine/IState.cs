@@ -6,9 +6,9 @@
    public interface IState
    {
       /// <summary>
-      /// Inserts a quarter into the gumball machine.
+      /// Called to dispense a gumball.
       /// </summary>
-      void InsertQuarter();
+      void Dispense();
 
       /// <summary>
       /// Ejects a quarter from the gumball machine.
@@ -16,13 +16,13 @@
       void EjectQuarter();
 
       /// <summary>
+      /// Inserts a quarter into the gumball machine.
+      /// </summary>
+      void InsertQuarter();
+
+      /// <summary>
       /// Turns the crank of the gumball machine.
       /// </summary>
       void TurnCrank();
-
-      /// <summary>
-      /// Called to dispense a gumball.
-      /// </summary>
-      void Dispense();
    }
 }
