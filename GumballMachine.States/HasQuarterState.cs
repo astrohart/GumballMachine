@@ -44,6 +44,11 @@ namespace GumballMachine.States
          => Console.WriteLine("You can't insert another quarter.");
 
       /// <summary>
+      /// Refills the machine with more gumballs.
+      /// </summary>
+      public override void Refill() { }
+
+      /// <summary>
       /// Returns a string that represents the current object.
       /// </summary>
       /// <returns>
