@@ -28,15 +28,14 @@ namespace GumballMachine
       private const int SOLD_OUT = 0;
 
       /// <summary>
+      /// Gets the count of gumballs.
+      /// </summary>
+      public int Count { get; } = 0;
+
+      /// <summary>
       /// Gets or sets the current state.
       /// </summary>
       public int State { get; set; }
-
-      /// <summary>
-      /// Gets the count of gumballs.
-      /// </summary>
-      public int Count { get; private set; } = 0;
-      
 
       /// <summary>
       /// Entry point of the program.
