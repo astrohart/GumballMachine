@@ -25,8 +25,10 @@ namespace GumballMachine.Tests
       public void
          Test_GumballMachine_Ctor_ThrowsArgumentOutOfRangeException_IfCalledWithNegativeCount()
       {
+         const int INITIAL_GUMBALL_AMOUNT = -100;
+
          Assert.Throws<ArgumentOutOfRangeException>(
-            () => new GumballMachineContext(-100)
+            () => new GumballMachineContext(INITIAL_GUMBALL_AMOUNT)
          );
       }
 
@@ -42,8 +44,10 @@ namespace GumballMachine.Tests
       public void
          Test_GumballMachine_Ctor_ThrowsArgumentOutOfRangeException_IfCalledWithZeroCount()
       {
+         const int INITIAL_GUMBALL_AMOUNT = 0;
+
          Assert.Throws<ArgumentOutOfRangeException>(
-            () => new GumballMachineContext(0)
+            () => new GumballMachineContext(INITIAL_GUMBALL_AMOUNT)
          );
       }
 
