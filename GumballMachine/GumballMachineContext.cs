@@ -118,5 +118,35 @@ namespace GumballMachine
                break;
          }
       }
+
+      /// <summary>
+      /// Turns the crank of the gumball machine.
+      /// </summary>
+      public void TurnCrank()
+      {
+         switch (State)
+         {
+            case HAS_QUARTER: // There already is a quarter in the machine.
+               Console.WriteLine("Quarter returned.");
+               State = NO_QUARTER;
+               break;
+
+            case NO_QUARTER: // A quarter isn't in the machine.
+               Console.WriteLine("You turned the crank but there is no quarter.");
+               break;
+
+            case SOLD_OUT: // No more gumballs are left.
+               Console.WriteLine(
+                  "You turned the crank, but there are no gumballs in the machine."
+               );
+               break;
+
+            case SOLD: // A gumball was dispensed.
+               Console.WriteLine(
+                  "Turning the crank twice doesn't get you another gumball."
+               );
+               break;
+         }
+      }
    }
 }
