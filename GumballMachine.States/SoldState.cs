@@ -48,6 +48,11 @@ namespace GumballMachine.States
          => Console.WriteLine("Please wait.  We're already giving you a gumball.");
 
       /// <summary>
+      /// Refills the machine with more gumballs.
+      /// </summary>
+      public override void Refill() { }
+
+      /// <summary>
       /// Returns a string that represents the current object.
       /// </summary>
       /// <returns>
