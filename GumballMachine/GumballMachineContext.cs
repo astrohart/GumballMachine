@@ -52,7 +52,7 @@ namespace GumballMachine
       /// <summary>
       /// Gets the count of gumballs.
       /// </summary>
-      public int Count { get; }
+      public int Count { get; set; }
 
       /// <summary>
       /// Gets or sets the current state.
@@ -115,6 +115,28 @@ namespace GumballMachine
                );
                break;
          }
+      }
+
+      /// <summary>
+      /// Refills the gumball machine by adding <paramref name="count" /> more gumballs.
+      /// </summary>
+      /// <param name="count">
+      /// (Required.) An integer that specifies the number of gumballs to add.
+      /// </param>
+      /// <remarks>
+      /// The <paramref name="count" /> parameter must be 1 or higher.
+      /// </remarks>
+      /// <exception cref="T:System.ArgumentOutOfRangeException">
+      /// Thrown if the <paramref name="count" /> parameter is zero or negative.
+      /// </exception>
+      public void Refill(int count)
+      {
+         if (count <= 0)
+            throw new ArgumentOutOfRangeException(
+               "Can't refill with zero or negative gumballs."
+            );
+
+         Count += count;
       }
 
       /// <summary>
