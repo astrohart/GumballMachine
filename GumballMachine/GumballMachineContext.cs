@@ -52,7 +52,7 @@ namespace GumballMachine
       /// <summary>
       /// Gets the count of gumballs.
       /// </summary>
-      public int Count { get; set; }
+      public int Count { get; private set; }
 
       /// <summary>
       /// Gets or sets the current state.
