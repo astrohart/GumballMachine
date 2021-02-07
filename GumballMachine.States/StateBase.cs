@@ -39,6 +39,11 @@ namespace GumballMachine.States
       public abstract void InsertQuarter();
 
       /// <summary>
+      /// Refills the machine with more gumballs.
+      /// </summary>
+      public abstract void Refill();
+
+      /// <summary>
       /// Turns the crank of the gumball machine.
       /// </summary>
       public abstract void TurnCrank();
