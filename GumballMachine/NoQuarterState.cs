@@ -37,7 +37,7 @@ namespace GumballMachine
       public override void InsertQuarter()
       {
          Console.WriteLine("You inserted a quarter.");
-         _machine.SetState(_machine.getHasQuarterState());
+         _machine.SetState(_machine.GetHasQuarterState());
       }
 
       /// <summary>

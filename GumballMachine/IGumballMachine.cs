@@ -4,6 +4,6 @@
    {
       void SetState(IState newState);
 
-      IState getHasQuarterState();
+      IState GetHasQuarterState();
    }
 }
