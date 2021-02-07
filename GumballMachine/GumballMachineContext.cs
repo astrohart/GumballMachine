@@ -134,7 +134,7 @@ namespace GumballMachine
       {
          if (count <= 0)
             throw new ArgumentOutOfRangeException(
-               "Can't refill with zero or negative gumballs."
+               Resources.Error_CountMustBePositive
             );
 
          Count += count;
