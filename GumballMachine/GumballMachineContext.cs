@@ -60,6 +60,34 @@ namespace GumballMachine
       public int State { get; private set; } = SOLD_OUT;
 
       /// <summary>
+      /// Ejects a quarter from the gumball machine.
+      /// </summary>
+      public void EjectQuarter()
+      {
+         switch (State)
+         {
+            case HAS_QUARTER: // There already is a quarter in the machine.
+               Console.WriteLine("Quarter returned.");
+               State = NO_QUARTER;
+               break;
+
+            case NO_QUARTER: // A quarter isn't in the machine.
+               Console.WriteLine("You haven't inserted a quarter.");
+               break;
+
+            case SOLD_OUT: // No more gumballs are left.
+               Console.WriteLine(
+                  "You can't eject because you haven't inserted a quarter yet."
+               );
+               break;
+
+            case SOLD: // A gumball was dispensed.
+               Console.WriteLine("Sorry!  You already turned the crank.");
+               break;
+         }
+      }
+
+      /// <summary>
       /// Inserts a quarter into the gumball machine.
       /// </summary>
       public void InsertQuarter()
@@ -90,34 +118,13 @@ namespace GumballMachine
       }
 
       /// <summary>
-      /// Ejects a quarter from the gumball machine.
+      /// Returns a string that represents the current object.
       /// </summary>
-      public void EjectQuarter()
-      {
-         switch (State)
-         {
-            case HAS_QUARTER: // There already is a quarter in the machine.
-               Console.WriteLine("Quarter returned.");
-               State = NO_QUARTER;
-               break;
-
-            case NO_QUARTER: // A quarter isn't in the machine.
-               Console.WriteLine("You haven't inserted a quarter.");
-               break;
-
-            case SOLD_OUT: // No more gumballs are left.
-               Console.WriteLine(
-                  "You can't eject because you haven't inserted a quarter yet."
-               );
-               break;
-
-            case SOLD: // A gumball was dispensed.
-               Console.WriteLine(
-                  "Sorry!  You already turned the crank."
-               );
-               break;
-         }
-      }
+      /// <returns>
+      /// A string that represents the current object.
+      /// </returns>
+      public override string ToString()
+         => $"Gumball machine has {Count} gumballs.";
 
       /// <summary>
       /// Turns the crank of the gumball machine.
@@ -132,7 +139,9 @@ namespace GumballMachine
                break;
 
             case NO_QUARTER: // A quarter isn't in the machine.
-               Console.WriteLine("You turned the crank but there is no quarter.");
+               Console.WriteLine(
+                  "You turned the crank but there is no quarter."
+               );
                break;
 
             case SOLD_OUT: // No more gumballs are left.
