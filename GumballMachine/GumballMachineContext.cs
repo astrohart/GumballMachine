@@ -28,9 +28,27 @@ namespace GumballMachine
       private const int SOLD_OUT = 0;
 
       /// <summary>
+      /// Constructs a new instance of
+      /// <see
+      ///    cref="T:GumballMachine.GumballMachineContext" />
+      /// and returns a
+      /// reference to it.
+      /// </summary>
+      /// <param name="count">
+      /// (Required.) Integer that specifies how many gumballs to initially fill
+      /// the machine with.
+      /// </param>
+      public GumballMachineContext(int count)
+      {
+         Count = count;
+         if (count > 0)
+            State = NO_QUARTER;
+      }
+
+      /// <summary>
       /// Gets the count of gumballs.
       /// </summary>
-      public int Count { get; } = 0;
+      public int Count { get; }
 
       /// <summary>
       /// Gets or sets the current state.
