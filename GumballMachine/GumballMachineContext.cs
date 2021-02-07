@@ -33,9 +33,6 @@
       /// <summary>
       /// Entry point of the program.
       /// </summary>
-      /// <param name="args">
-      /// Collection of arguments passed on the command line of the program.
-      /// </param>
-      public static void Main(string[] args) { }
+      public static void Main() { }
    }
 }
