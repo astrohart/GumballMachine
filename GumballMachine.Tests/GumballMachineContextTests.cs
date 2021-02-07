@@ -8,6 +8,13 @@ namespace GumballMachine.Tests
    [TestFixture]
    public class GumballMachineContextTests
    {
-      // TODO: Add test fixture implementation here
+      /// <summary>
+      /// Asserts that the gumball machine works for normal use cases.
+      /// </summary>
+      [Test]
+      public void Test_GumballMachine_WorksAsExpected_ForNormalUse()
+      {
+         // TODO: Add test statements here.
+      }
    }
 }
