@@ -55,6 +55,7 @@
     <Compile Include="SoldOutState.cs" />
     <Compile Include="SoldState.cs" />
     <Compile Include="StateBase.cs" />
+    <Compile Include="WinnerState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
