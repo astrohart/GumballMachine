@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GumballMachine.Properties;
+using System;
 
 namespace GumballMachine
 {
@@ -45,7 +46,7 @@ namespace GumballMachine
             State = NO_QUARTER;
          else
             throw new ArgumentOutOfRangeException(
-               "ERROR: Cannot load zero or a negative number of gumballs into the machine."
+               Resources.Error_CountMustBePositive
             );
       }
 

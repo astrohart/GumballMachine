@@ -59,5 +59,14 @@ namespace GumballMachine.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERROR: Cannot load zero or a negative number of gumballs into the machine..
+        /// </summary>
+        internal static string Error_CountMustBePositive {
+            get {
+                return ResourceManager.GetString("Error_CountMustBePositive", resourceCulture);
+            }
+        }
     }
 }
