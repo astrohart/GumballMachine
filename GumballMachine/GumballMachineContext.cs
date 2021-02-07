@@ -41,5 +41,13 @@ namespace GumballMachine
 
          Console.ReadKey();
       }
+
+      /// <summary>
+      /// Inserts a quarter into the gumball machine.
+      /// </summary>
+      public void InsertQuarter()
+      {
+         throw new NotImplementedException();
+      }
    }
 }
