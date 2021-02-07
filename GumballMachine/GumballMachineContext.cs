@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GumballMachine
 {
-   public class Program
+   public class GumballMachineContext
    {
       public static void Main(string[] args)
       {
