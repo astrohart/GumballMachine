@@ -35,7 +35,7 @@ namespace GumballMachine
       /// <summary>
       /// Gets or sets the current state.
       /// </summary>
-      public int State { get; set; }
+      public int State { get; private set; }
 
       /// <summary>
       /// Inserts a quarter into the gumball machine.
