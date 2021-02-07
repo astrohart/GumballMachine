@@ -109,15 +109,18 @@ namespace GumballMachine
                Resources.Error_CountMustBePositive
             );
 
-         NumberOfGumballs += count;
+         if (CurrentState != SoldOutState)
+            throw new InvalidOperationException(
+               "The gumball machine does not need to be refilled."
+            );
 
-         SetState(
-            NoQuarterState
-         ); // reset machine to allow getting gumballs again
+         NumberOfGumballs += count;
 
          Console.WriteLine(
             $"Gumball machine refilled.  Inventory: {NumberOfGumballs} gumballs."
          );
+
+         CurrentState?.Refill();
       }
 
       /// <summary>
@@ -159,6 +162,15 @@ namespace GumballMachine
          => CurrentState?.InsertQuarter();
 
       /// <summary>
+      /// Turns the crank of the gumball machine.
+      /// </summary>
+      public void TurnCrank()
+      {
+         CurrentState?.TurnCrank();
+         CurrentState?.Dispense();
+      }
+
+      /// <summary>
       /// Returns a string that represents the current object.
       /// </summary>
       /// <returns>
@@ -177,15 +189,6 @@ namespace GumballMachine
 
          result += Environment.NewLine;
          return result;
-      }
-
-      /// <summary>
-      /// Turns the crank of the gumball machine.
-      /// </summary>
-      public void TurnCrank()
-      {
-         CurrentState?.TurnCrank();
-         CurrentState?.Dispense();
       }
    }
 }
