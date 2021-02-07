@@ -10,6 +10,44 @@ namespace GumballMachine.Tests
    public class GumballMachineContextTests
    {
       /// <summary>
+      /// Asserts that the <see cref="T:GumballMachine.GumballMachineContext" />
+      /// constructor throws a
+      /// <see
+      ///    cref="T:System.ArgumentOutOfRangeException" />
+      /// if its count parameter
+      /// is initialized to a negative number of gumballs.
+      /// </summary>
+      /// <remarks>
+      /// Since we are counting objects, we don't know what to do with, say,
+      /// -100 of them.
+      /// </remarks>
+      [Test]
+      public void
+         Test_GumballMachine_Ctor_ThrowsArgumentOutOfRangeException_IfCalledWithNegativeCount()
+      {
+         Assert.Throws<ArgumentOutOfRangeException>(
+            () => new GumballMachineContext(-100)
+         );
+      }
+
+      /// <summary>
+      /// Asserts that the <see cref="T:GumballMachine.GumballMachineContext" />
+      /// constructor throws a
+      /// <see
+      ///    cref="T:System.ArgumentOutOfRangeException" />
+      /// if its count parameter
+      /// is initialized to zero gumballs.
+      /// </summary>
+      [Test]
+      public void
+         Test_GumballMachine_Ctor_ThrowsArgumentOutOfRangeException_IfCalledWithZeroCount()
+      {
+         Assert.Throws<ArgumentOutOfRangeException>(
+            () => new GumballMachineContext(0)
+         );
+      }
+
+      /// <summary>
       /// Asserts that the gumball machine works for normal use cases.
       /// </summary>
       [Test]
