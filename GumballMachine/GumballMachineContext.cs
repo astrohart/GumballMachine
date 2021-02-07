@@ -43,6 +43,10 @@ namespace GumballMachine
          Count = count;
          if (count > 0)
             State = NO_QUARTER;
+         else
+            throw new ArgumentOutOfRangeException(
+               "ERROR: Cannot load zero or a negative number of gumballs into the machine."
+            );
       }
 
       /// <summary>
