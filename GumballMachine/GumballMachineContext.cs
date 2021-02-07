@@ -181,6 +181,7 @@ namespace GumballMachine
                break;
          }
 
+         result += Environment.NewLine;
          return result;
       }
 
