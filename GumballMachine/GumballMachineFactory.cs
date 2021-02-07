@@ -1,4 +1,6 @@
-﻿namespace GumballMachine
+﻿using GumballMachine.Interfaces;
+
+namespace GumballMachine
 {
    public static class GumballMachineFactory
    {

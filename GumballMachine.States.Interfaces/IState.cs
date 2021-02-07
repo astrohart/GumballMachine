@@ -1,4 +1,4 @@
-﻿namespace GumballMachine
+﻿namespace GumballMachine.States.Interfaces
 {
    /// <summary>
    /// Defines the behaviors of the gumball machine when it's in a given state.

@@ -1,4 +1,7 @@
-﻿namespace GumballMachine
+﻿using GumballMachine.Interfaces;
+using GumballMachine.States.Interfaces;
+
+namespace GumballMachine.States
 {
    /// <summary>
    /// Implements behavior common to all states.

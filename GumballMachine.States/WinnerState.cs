@@ -1,6 +1,7 @@
-﻿using System;
+﻿using GumballMachine.Interfaces;
+using System;
 
-namespace GumballMachine
+namespace GumballMachine.States
 {
    /// <summary>
    /// We have a winner! You get 2 gumballs instead of 1 -- unless there's only

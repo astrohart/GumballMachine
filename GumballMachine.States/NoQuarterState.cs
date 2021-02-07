@@ -1,6 +1,7 @@
-﻿using System;
+﻿using GumballMachine.Interfaces;
+using System;
 
-namespace GumballMachine
+namespace GumballMachine.States
 {
    /// <summary>
    /// There is no quarter in the machine.

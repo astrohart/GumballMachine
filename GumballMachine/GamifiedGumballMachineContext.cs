@@ -1,4 +1,7 @@
-﻿namespace GumballMachine
+﻿using GumballMachine.States;
+using GumballMachine.States.Interfaces;
+
+namespace GumballMachine
 {
    /// <summary>
    /// Represents a gumball machine that is gamified to give 1 out of every 10

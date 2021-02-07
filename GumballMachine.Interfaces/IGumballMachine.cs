@@ -1,4 +1,6 @@
-﻿namespace GumballMachine
+﻿using GumballMachine.States.Interfaces;
+
+namespace GumballMachine.Interfaces
 {
    /// <summary>
    /// Defines the public-exposed methods and properties of a gumball machine.

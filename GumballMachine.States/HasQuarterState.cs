@@ -1,23 +1,26 @@
-﻿using System;
+﻿using GumballMachine.Interfaces;
+using System;
 
-namespace GumballMachine
+namespace GumballMachine.States
 {
    /// <summary>
-   /// The machine is out of gumballs.
+   /// A quarter has been inserted in the machine.
    /// </summary>
-   public class SoldOutState : StateBase
+   public class HasQuarterState : StateBase
    {
+      private readonly Random randomWinnerGenerator = new Random(
+         Guid.NewGuid().GetHashCode()
+      );
+
       /// <summary>
-      /// Constructs a new instance of
-      /// <see
-      ///    cref="T:GumballMachine.SoldOutState" />
+      /// Constructs a new instance of <see cref="T:GumballMachine.StateBase" />
       /// and returns a reference to it.
       /// </summary>
       /// <param name="machine">
       /// Reference to a <see cref="T:GumballMachine.IGumballMachine" /> that
       /// represents the gumball machine apparatus.
       /// </param>
-      public SoldOutState(IGumballMachine machine) : base(machine) { }
+      public HasQuarterState(IGumballMachine machine) : base(machine) { }
 
       /// <summary>
       /// Called to dispense a gumball.
@@ -29,19 +32,16 @@ namespace GumballMachine
       /// Ejects a quarter from the gumball machine.
       /// </summary>
       public override void EjectQuarter()
-         => Console.WriteLine(
-            "You can't eject because you haven't inserted a quarter yet."
-         );
+      {
+         Console.WriteLine("Quarter returned.");
+         _machine.SetState(_machine.NoQuarterState);
+      }
 
       /// <summary>
       /// Inserts a quarter into the gumball machine.
       /// </summary>
       public override void InsertQuarter()
-      {
-         Console.WriteLine(
-            "You can't insert a quarter because the machine is sold out."
-         );
-      }
+         => Console.WriteLine("You can't insert another quarter.");
 
       /// <summary>
       /// Returns a string that represents the current object.
@@ -50,15 +50,17 @@ namespace GumballMachine
       /// A string that represents the current object.
       /// </returns>
       public override string ToString()
-         => "Machine is out of gumballs.";
+         => "Machine has a quarter in the slot.";
 
       /// <summary>
       /// Turns the crank of the gumball machine.
       /// </summary>
       public override void TurnCrank()
       {
-         Console.WriteLine(
-            "You turned the crank, but there are no gumballs in the machine."
+         Console.WriteLine("You turned the crank...");
+         var randomWinner = randomWinnerGenerator.Next(10);
+         _machine.SetState(
+            randomWinner == 0 && _machine.NumberOfGumballs > 1 ? _machine.WinnerState : _machine.SoldState
          );
       }
    }
