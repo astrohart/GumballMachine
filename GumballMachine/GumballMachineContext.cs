@@ -138,6 +138,13 @@ namespace GumballMachine
             );
 
          Count += count;
+
+         if (State == SOLD_OUT)
+            State = NO_QUARTER; // reset machine to allow getting gumballs again
+
+         Console.WriteLine(
+            $"Gumball machine refilled.  Inventory: {Count} gumballs."
+         );
       }
 
       /// <summary>
@@ -147,7 +154,35 @@ namespace GumballMachine
       /// A string that represents the current object.
       /// </returns>
       public override string ToString()
-         => $"Gumball machine has {Count} gumballs.";
+      {
+         var result = string.Empty;
+
+         result = "Mighty Gumball, Inc." + Environment.NewLine;
+         result += "C#-enabled Standing Gumball Model #2021" +
+                   Environment.NewLine;
+         result += $"Inventory: {Count} gumballs" + Environment.NewLine;
+
+         switch (State)
+         {
+            case HAS_QUARTER: // There already is a quarter in the machine.
+               result += "Machine has a quarter in the slot.";
+               break;
+
+            case NO_QUARTER: // A quarter isn't in the machine.
+               result += "Machine is waiting for a quarter to be inserted.";
+               break;
+
+            case SOLD_OUT: // No more gumballs are left.
+               result += "Machine is out of gumballs.";
+               break;
+
+            case SOLD: // A gumball was dispensed.
+               result += "Machine dispensed a gumball.";
+               break;
+         }
+
+         return result;
+      }
 
       /// <summary>
       /// Turns the crank of the gumball machine.
@@ -190,20 +225,20 @@ namespace GumballMachine
          switch (State)
          {
             case HAS_QUARTER: // There already is a quarter in the machine.
-               Console.WriteLine("Quarter returned.");
-               State = NO_QUARTER;
+               Console.WriteLine("You need to turn the crank.");
                break;
 
             case NO_QUARTER: // A quarter isn't in the machine.
-               Console.WriteLine("You need to turn the crank.");
+               Console.WriteLine("You need to pay first!");
                break;
 
             case SOLD_OUT: // No more gumballs are left.
                Console.WriteLine("No gumball dispensed.");
                break;
 
-            case SOLD: // A gumball was dispensed.
+            case SOLD: // A gumball is to be dispensed.
                Console.WriteLine("A gumball comes rolling out the slot!");
+               Count--; // reduce the count of gumballs by one
                if (Count == 0)
                {
                   Console.WriteLine("Oops!  We've run out of gumballs!");
