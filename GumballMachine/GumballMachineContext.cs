@@ -25,6 +25,7 @@ namespace GumballMachine
          SoldOutState = new SoldOutState(this);
          NoQuarterState = new NoQuarterState(this);
          SoldState = new SoldState(this);
+         WinnerState = new WinnerState(this);
 
          NumberOfGumballs = numberOfGumballs;
          CurrentState = numberOfGumballs > 0 ? NoQuarterState : SoldOutState;
@@ -77,13 +78,27 @@ namespace GumballMachine
       public IState SoldState { get; }
 
       /// <summary>
+      /// Gets a reference to an instance of an object that implements the
+      /// <see
+      ///    cref="T:GumballMachine.IState" />
+      /// interface that defines the behaviors
+      /// when the customer deserves 2 gumballs because they have won the
+      /// 1-in-10 game, where every 10th customer gets 2 gumballs.
+      /// </summary>
+      public IState WinnerState { get; }
+
+      /// <summary>
       /// Performs the action of releasing the gumball for the purchaser and
       /// updating our inventory.
       /// </summary>
       public void ReleaseGumball()
       {
+         if (NumberOfGumballs == 0
+         ) // cannot release a gumball if there are none
+            return;
+
          Console.WriteLine("A gumball comes rolling out of the slot...");
-         if (NumberOfGumballs > 0) NumberOfGumballs--;
+         NumberOfGumballs--;
       }
 
       /// <summary>
@@ -161,7 +176,7 @@ namespace GumballMachine
                    Environment.NewLine;
          result += $"Inventory: {NumberOfGumballs} gumballs" +
                    Environment.NewLine + CurrentState;
-         
+
          result += Environment.NewLine;
          return result;
       }
