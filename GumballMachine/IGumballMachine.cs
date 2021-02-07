@@ -62,6 +62,20 @@
       IState WinnerState { get; }
 
       /// <summary>
+      /// Refills the gumball machine by adding <paramref name="count" /> more gumballs.
+      /// </summary>
+      /// <param name="count">
+      /// (Required.) An integer that specifies the number of gumballs to add.
+      /// </param>
+      /// <remarks>
+      /// The <paramref name="count" /> parameter must be 1 or higher.
+      /// </remarks>
+      /// <exception cref="T:System.ArgumentOutOfRangeException">
+      /// Thrown if the <paramref name="count" /> parameter is zero or negative.
+      /// </exception>
+      void Refill(int count);
+
+      /// <summary>
       /// Performs the action of releasing the gumball for the purchaser and
       /// updating our inventory.
       /// </summary>

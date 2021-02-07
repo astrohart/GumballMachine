@@ -146,10 +146,9 @@ namespace GumballMachine
 
          NumberOfGumballs += count;
 
-         if (CurrentState == SoldOutState)
-            SetState(
-               NoQuarterState
-            ); // reset machine to allow getting gumballs again
+         SetState(
+            NoQuarterState
+         ); // reset machine to allow getting gumballs again
 
          Console.WriteLine(
             $"Gumball machine refilled.  Inventory: {NumberOfGumballs} gumballs."
