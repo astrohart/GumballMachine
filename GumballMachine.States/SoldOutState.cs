@@ -47,7 +47,10 @@ namespace GumballMachine.States
       /// <summary>
       /// Refills the machine with more gumballs.
       /// </summary>
-      public override void Refill() { }
+      public override void Refill()
+      {
+         _machine.SetState(_machine.NoQuarterState);
+      }
 
       /// <summary>
       /// Returns a string that represents the current object.
