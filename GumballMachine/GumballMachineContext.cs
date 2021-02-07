@@ -22,9 +22,9 @@ namespace GumballMachine
       public GumballMachineContext(int numberOfGumballs)
       {
          HasQuarterState = new HasQuarterState(this);
-         SoldOutState = new SoldOutState(this);
          NoQuarterState = new NoQuarterState(this);
          SoldState = new SoldState(this);
+         SoldOutState = new SoldOutState(this);
          WinnerState = new WinnerState(this);
 
          NumberOfGumballs = numberOfGumballs;
