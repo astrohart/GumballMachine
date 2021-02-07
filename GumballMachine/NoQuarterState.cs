@@ -37,8 +37,17 @@ namespace GumballMachine
       public override void InsertQuarter()
       {
          Console.WriteLine("You inserted a quarter.");
-         _machine.SetState(_machine.GetHasQuarterState());
+         _machine.SetState(_machine.HasQuarterState);
       }
+
+      /// <summary>
+      /// Returns a string that represents the current object.
+      /// </summary>
+      /// <returns>
+      /// A string that represents the current object.
+      /// </returns>
+      public override string ToString()
+         => "Machine is waiting for a quarter to be inserted.";
 
       /// <summary>
       /// Turns the crank of the gumball machine.

@@ -21,6 +21,14 @@
       void InsertQuarter();
 
       /// <summary>
+      /// Gets the representation of this state as a string.
+      /// </summary>
+      /// <returns>
+      /// String containing a representation of this state.
+      /// </returns>
+      string ToString();
+
+      /// <summary>
       /// Turns the crank of the gumball machine.
       /// </summary>
       void TurnCrank();

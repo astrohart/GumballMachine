@@ -8,7 +8,9 @@ namespace GumballMachine
    public class SoldOutState : StateBase
    {
       /// <summary>
-      /// Constructs a new instance of <see cref="T:GumballMachine.SoldOutState" />
+      /// Constructs a new instance of
+      /// <see
+      ///    cref="T:GumballMachine.SoldOutState" />
       /// and returns a reference to it.
       /// </summary>
       /// <param name="machine">
@@ -21,24 +23,43 @@ namespace GumballMachine
       /// Called to dispense a gumball.
       /// </summary>
       public override void Dispense()
-         => throw new NotImplementedException();
+         => Console.WriteLine("No gumball dispensed.");
 
       /// <summary>
       /// Ejects a quarter from the gumball machine.
       /// </summary>
       public override void EjectQuarter()
-         => throw new NotImplementedException();
+         => Console.WriteLine(
+            "You can't eject because you haven't inserted a quarter yet."
+         );
 
       /// <summary>
       /// Inserts a quarter into the gumball machine.
       /// </summary>
       public override void InsertQuarter()
-         => throw new NotImplementedException();
+      {
+         Console.WriteLine(
+            "You can't insert a quarter because the machine is sold out."
+         );
+      }
+
+      /// <summary>
+      /// Returns a string that represents the current object.
+      /// </summary>
+      /// <returns>
+      /// A string that represents the current object.
+      /// </returns>
+      public override string ToString()
+         => "Machine is out of gumballs.";
 
       /// <summary>
       /// Turns the crank of the gumball machine.
       /// </summary>
       public override void TurnCrank()
-         => throw new NotImplementedException();
+      {
+         Console.WriteLine(
+            "You turned the crank, but there are no gumballs in the machine."
+         );
+      }
    }
 }

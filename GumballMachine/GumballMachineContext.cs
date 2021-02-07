@@ -6,28 +6,8 @@ namespace GumballMachine
    /// <summary>
    /// Represents a Gumball Machine.
    /// </summary>
-   public class GumballMachineContext
+   public class GumballMachineContext : IGumballMachine
    {
-      /// <summary>
-      /// A quarter has been inserted in the machine.
-      /// </summary>
-      private const int HAS_QUARTER = 2;
-
-      /// <summary>
-      /// There is no quarter in the machine.
-      /// </summary>
-      private const int NO_QUARTER = 1;
-
-      /// <summary>
-      /// A gumball has been dispensed.
-      /// </summary>
-      private const int SOLD = 3;
-
-      /// <summary>
-      /// The machine is out of gumballs.
-      /// </summary>
-      private const int SOLD_OUT = 0;
-
       /// <summary>
       /// Constructs a new instance of
       /// <see
@@ -35,88 +15,104 @@ namespace GumballMachine
       /// and returns a
       /// reference to it.
       /// </summary>
-      /// <param name="count">
+      /// <param name="numberOfGumballs">
       /// (Required.) Integer that specifies how many gumballs to initially fill
       /// the machine with.
       /// </param>
-      public GumballMachineContext(int count)
+      public GumballMachineContext(int numberOfGumballs)
       {
-         Count = count;
-         if (count > 0)
-            State = NO_QUARTER;
-         else
-            throw new ArgumentOutOfRangeException(
-               Resources.Error_CountMustBePositive
-            );
+         HasQuarterState = new HasQuarterState(this);
+         SoldOutState = new SoldOutState(this);
+         NoQuarterState = new NoQuarterState(this);
+         SoldState = new SoldState(this);
+
+         NumberOfGumballs = numberOfGumballs;
+         CurrentState = numberOfGumballs > 0 ? NoQuarterState : SoldOutState;
       }
+
+      /// <summary>
+      /// Gets the current state.
+      /// </summary>
+      public IState CurrentState { get; private set; }
+
+      /// <summary>
+      /// Gets a reference to an instance of an object that implements the
+      /// <see
+      ///    cref="T:GumballMachine.IState" />
+      /// interface that defines the behaviors
+      /// when the machine has a quarter inserted in its slot.
+      /// </summary>
+      public IState HasQuarterState { get; }
+
+      /// <summary>
+      /// Gets a reference to an instance of an object that implements the
+      /// <see
+      ///    cref="T:GumballMachine.IState" />
+      /// interface that defines the behaviors
+      /// when the machine does not have a quarter inserted in its slot.
+      /// </summary>
+      public IState NoQuarterState { get; }
 
       /// <summary>
       /// Gets the count of gumballs.
       /// </summary>
-      public int Count { get; private set; }
+      public int NumberOfGumballs { get; private set; }
 
       /// <summary>
-      /// Gets or sets the current state.
+      /// Gets a reference to an instance of an object that implements the
+      /// <see
+      ///    cref="T:GumballMachine.IState" />
+      /// interface that defines the behaviors
+      /// when the machine is out of gumballs.
       /// </summary>
-      public int State { get; private set; }
+      public IState SoldOutState { get; }
+
+      /// <summary>
+      /// Gets a reference to an instance of an object that implements the
+      /// <see
+      ///    cref="T:GumballMachine.IState" />
+      /// interface that defines the behaviors
+      /// when the machine is to dispense a purchased gumball.
+      /// </summary>
+      public IState SoldState { get; }
+
+      /// <summary>
+      /// Performs the action of releasing the gumball for the purchaser and
+      /// updating our inventory.
+      /// </summary>
+      public void ReleaseGumball()
+      {
+         Console.WriteLine("A gumball comes rolling out of the slot...");
+         if (NumberOfGumballs > 0) NumberOfGumballs--;
+      }
+
+      /// <summary>
+      /// Transitions the gumball machine to the new state.
+      /// </summary>
+      /// <param name="state">
+      /// (Required.) Reference to an instance of an object that implements the
+      /// <see cref="T:GumballMachine.IState" /> interface that represents the
+      /// new state of the machine.
+      /// </param>
+      /// <exception cref="T:System.ArgumentNullException">
+      /// Thrown if the required parameter, <paramref name="newState" />, is
+      /// passed a <c>null</c> value.
+      /// </exception>
+      public void SetState(IState newState)
+         => CurrentState = newState ??
+                           throw new ArgumentNullException(nameof(newState));
 
       /// <summary>
       /// Ejects a quarter from the gumball machine.
       /// </summary>
       public void EjectQuarter()
-      {
-         switch (State)
-         {
-            case HAS_QUARTER: // There already is a quarter in the machine.
-               Console.WriteLine("Quarter returned.");
-               State = NO_QUARTER;
-               break;
-
-            case NO_QUARTER: // A quarter isn't in the machine.
-               Console.WriteLine("You haven't inserted a quarter.");
-               break;
-
-            case SOLD_OUT: // No more gumballs are left.
-               Console.WriteLine(
-                  "You can't eject because you haven't inserted a quarter yet."
-               );
-               break;
-
-            case SOLD: // A gumball was dispensed.
-               Console.WriteLine("Sorry!  You already turned the crank.");
-               break;
-         }
-      }
+         => CurrentState?.EjectQuarter();
 
       /// <summary>
       /// Inserts a quarter into the gumball machine.
       /// </summary>
       public void InsertQuarter()
-      {
-         switch (State)
-         {
-            case HAS_QUARTER: // There already is a quarter in the machine.
-               Console.WriteLine("You can't insert another quarter.");
-               break;
-
-            case NO_QUARTER: // A quarter isn't in the machine.
-               State = HAS_QUARTER;
-               Console.WriteLine("You inserted a quarter.");
-               break;
-
-            case SOLD_OUT: // No more gumballs are left.
-               Console.WriteLine(
-                  "You can't insert a quarter because the machine is sold out."
-               );
-               break;
-
-            case SOLD: // A gumball was dispensed.
-               Console.WriteLine(
-                  "Please wait.  We're already giving you a gumball."
-               );
-               break;
-         }
-      }
+         => CurrentState?.InsertQuarter();
 
       /// <summary>
       /// Refills the gumball machine by adding <paramref name="count" /> more gumballs.
@@ -137,13 +133,15 @@ namespace GumballMachine
                Resources.Error_CountMustBePositive
             );
 
-         Count += count;
+         NumberOfGumballs += count;
 
-         if (State == SOLD_OUT)
-            State = NO_QUARTER; // reset machine to allow getting gumballs again
+         if (CurrentState == SoldOutState)
+            SetState(
+               NoQuarterState
+            ); // reset machine to allow getting gumballs again
 
          Console.WriteLine(
-            $"Gumball machine refilled.  Inventory: {Count} gumballs."
+            $"Gumball machine refilled.  Inventory: {NumberOfGumballs} gumballs."
          );
       }
 
@@ -161,27 +159,9 @@ namespace GumballMachine
          result += "Mighty Gumball, Inc." + Environment.NewLine;
          result += "C#-enabled Standing Gumball Model #2021" +
                    Environment.NewLine;
-         result += $"Inventory: {Count} gumballs" + Environment.NewLine;
-
-         switch (State)
-         {
-            case HAS_QUARTER: // There already is a quarter in the machine.
-               result += "Machine has a quarter in the slot.";
-               break;
-
-            case NO_QUARTER: // A quarter isn't in the machine.
-               result += "Machine is waiting for a quarter to be inserted.";
-               break;
-
-            case SOLD_OUT: // No more gumballs are left.
-               result += "Machine is out of gumballs.";
-               break;
-
-            case SOLD: // A gumball was dispensed.
-               result += "Machine dispensed a gumball.";
-               break;
-         }
-
+         result += $"Inventory: {NumberOfGumballs} gumballs" +
+                   Environment.NewLine + CurrentState;
+         
          result += Environment.NewLine;
          return result;
       }
@@ -191,68 +171,9 @@ namespace GumballMachine
       /// </summary>
       public void TurnCrank()
       {
-         switch (State)
-         {
-            case HAS_QUARTER: // There already is a quarter in the machine.
-               Console.WriteLine("You turned the crank, so you get a gumball.");
-               State = SOLD;
-               Dispense();
-               break;
-
-            case NO_QUARTER: // A quarter isn't in the machine.
-               Console.WriteLine(
-                  "You turned the crank but there is no quarter."
-               );
-               break;
-
-            case SOLD_OUT: // No more gumballs are left.
-               Console.WriteLine(
-                  "You turned the crank, but there are no gumballs in the machine."
-               );
-               break;
-
-            case SOLD: // A gumball was dispensed.
-               Console.WriteLine(
-                  "Turning the crank twice doesn't get you another gumball."
-               );
-               break;
-         }
-      }
-
-      /// <summary>
-      /// Called to dispense a gumball.
-      /// </summary>
-      private void Dispense()
-      {
-         switch (State)
-         {
-            case HAS_QUARTER: // There already is a quarter in the machine.
-               Console.WriteLine("You need to turn the crank.");
-               break;
-
-            case NO_QUARTER: // A quarter isn't in the machine.
-               Console.WriteLine("You need to pay first!");
-               break;
-
-            case SOLD_OUT: // No more gumballs are left.
-               Console.WriteLine("No gumball dispensed.");
-               break;
-
-            case SOLD: // A gumball is to be dispensed.
-               Console.WriteLine("A gumball comes rolling out the slot!");
-               Count--; // reduce the count of gumballs by one
-               if (Count == 0)
-               {
-                  Console.WriteLine("Oops!  We've run out of gumballs!");
-                  State = SOLD_OUT;
-               }
-               else
-               {
-                  State = NO_QUARTER;
-               }
-
-               break;
-         }
+         CurrentState?.TurnCrank();
+         if (CurrentState == SoldState)
+            CurrentState?.Dispense();
       }
    }
 }

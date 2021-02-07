@@ -7,6 +7,11 @@ namespace GumballMachine
    /// </summary>
    public class HasQuarterState : StateBase
    {
+      /// <summary>Returns a string that represents the current object.</summary>
+      /// <returns>A string that represents the current object.</returns>
+      public override string ToString()
+         => "Machine has a quarter in the slot.";
+
       /// <summary>
       /// Constructs a new instance of <see cref="T:GumballMachine.StateBase" />
       /// and returns a reference to it.
@@ -21,24 +26,30 @@ namespace GumballMachine
       /// Called to dispense a gumball.
       /// </summary>
       public override void Dispense()
-         => throw new NotImplementedException();
+         => Console.WriteLine("No gumball dispensed.");
 
       /// <summary>
       /// Ejects a quarter from the gumball machine.
       /// </summary>
       public override void EjectQuarter()
-         => throw new NotImplementedException();
+      {
+         Console.WriteLine("Quarter returned.");
+         _machine.SetState(_machine.NoQuarterState);
+      }
 
       /// <summary>
       /// Inserts a quarter into the gumball machine.
       /// </summary>
       public override void InsertQuarter()
-         => throw new NotImplementedException();
+         => Console.WriteLine("You can't insert another quarter.");
 
       /// <summary>
       /// Turns the crank of the gumball machine.
       /// </summary>
       public override void TurnCrank()
-         => throw new NotImplementedException();
+      {
+         Console.WriteLine("You turned the crank...");
+         _machine.SetState(_machine.SoldState);
+      }
    }
 }
