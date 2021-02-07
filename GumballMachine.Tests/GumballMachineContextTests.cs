@@ -9,16 +9,13 @@ namespace GumballMachine.Tests
    [TestFixture]
    public class GumballMachineContextTests
    {
-      /// <summary>
-      /// TODO: Add unit test documentation here
-      /// </summary>
       [Test]
       public void Test_GumballMachine_OneInTenWinnerGame_Works()
       {
          const int INITIAL_GUMBALL_AMOUNT = 5;
 
          // Start with a gumball machine containing 5 gumballs
-         var machine = new GumballMachineContext(INITIAL_GUMBALL_AMOUNT);
+         var machine = GumballMachineFactory.Make(INITIAL_GUMBALL_AMOUNT);
 
          Console.WriteLine(machine); // print out the state of the machine
 
@@ -35,6 +32,10 @@ namespace GumballMachine.Tests
          machine.TurnCrank(); // turn the crank; we should get one gumball.
          machine.InsertQuarter(); // throw a quarter in...
          machine.TurnCrank(); // turn the crank; we should get one gumball.
+
+         Console.WriteLine(machine); // print out the state of the machine
+
+         machine.Refill(INITIAL_GUMBALL_AMOUNT); // Add 5 more gumballs
 
          Console.WriteLine(machine); // print out the state of the machine
 
@@ -64,7 +65,9 @@ namespace GumballMachine.Tests
          const int INITIAL_GUMBALL_AMOUNT = 5;
 
          // create a new gumball machine loaded with INITIAL_GUMBALL_AMOUNT gumballs.
-         var machine = new GumballMachineContext(INITIAL_GUMBALL_AMOUNT);
+         var machine = GumballMachineFactory.Make(
+            INITIAL_GUMBALL_AMOUNT, false
+         );
 
          Console.WriteLine(machine); // print out the state of the machine
 
@@ -73,7 +76,10 @@ namespace GumballMachine.Tests
 
          // since we inserted a quarter and then turned the crank, we expect
          // that the machine has one less gumball than we loaded it with
-         Assert.IsTrue(machine.NumberOfGumballs == INITIAL_GUMBALL_AMOUNT - 1);
+         Assert.IsTrue(
+            ((IGumballMachine) machine).NumberOfGumballs ==
+            INITIAL_GUMBALL_AMOUNT - 1
+         );
 
          Console.WriteLine(machine); // print out the state of the machine again
 
@@ -82,7 +88,10 @@ namespace GumballMachine.Tests
          machine.TurnCrank(); // turn he crank; we shouldn't get a gumball
 
          // should still have INITIAL_GUMBALL_COUNT - 1 gumballs in the machine
-         Assert.IsTrue(machine.NumberOfGumballs == INITIAL_GUMBALL_AMOUNT - 1);
+         Assert.IsTrue(
+            ((IGumballMachine) machine).NumberOfGumballs ==
+            INITIAL_GUMBALL_AMOUNT - 1
+         );
 
          Console.WriteLine(machine); // print out the state of the machine again
 
@@ -94,7 +103,10 @@ namespace GumballMachine.Tests
 
          // should now have even less gumballs (by two more) than we started
          // with prior to the most recently run group of tests
-         Assert.IsTrue(machine.NumberOfGumballs == INITIAL_GUMBALL_AMOUNT - 3);
+         Assert.IsTrue(
+            ((IGumballMachine) machine).NumberOfGumballs ==
+            INITIAL_GUMBALL_AMOUNT - 3
+         );
 
          Console.WriteLine(machine); // print out the state of the machine again
 
@@ -106,9 +118,8 @@ namespace GumballMachine.Tests
          machine.InsertQuarter();
          machine.TurnCrank();
 
-         Assert.IsTrue(
-            machine.NumberOfGumballs <= 0
-         ); // assert that machine is out of inventory
+         // assert that machine is out of inventory
+         Assert.IsTrue(((IGumballMachine) machine).NumberOfGumballs <= 0);
 
          Console.WriteLine(machine); // print that machine state one more time
       }

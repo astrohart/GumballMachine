@@ -3,10 +3,42 @@ using System;
 
 namespace GumballMachine
 {
+   public interface IGumballMachineActions
+   {
+      /// <summary>
+      /// Ejects a quarter from the gumball machine.
+      /// </summary>
+      void EjectQuarter();
+
+      /// <summary>
+      /// Inserts a quarter into the gumball machine.
+      /// </summary>
+      void InsertQuarter();
+
+      /// <summary>
+      /// Turns the crank of the gumball machine.
+      /// </summary>
+      void TurnCrank();
+
+      /// <summary>
+      /// Refills the gumball machine by adding <paramref name="count" /> more gumballs.
+      /// </summary>
+      /// <param name="count">
+      /// (Required.) An integer that specifies the number of gumballs to add.
+      /// </param>
+      /// <remarks>
+      /// The <paramref name="count" /> parameter must be 1 or higher.
+      /// </remarks>
+      /// <exception cref="T:System.ArgumentOutOfRangeException">
+      /// Thrown if the <paramref name="count" /> parameter is zero or negative.
+      /// </exception>
+      void Refill(int count);
+   }
+
    /// <summary>
    /// Represents a Gumball Machine.
    /// </summary>
-   public class GumballMachineContext : IGumballMachine
+   public class GumballMachineContext : IGumballMachine, IGumballMachineActions
    {
       /// <summary>
       /// Constructs a new instance of
@@ -25,7 +57,6 @@ namespace GumballMachine
          NoQuarterState = new NoQuarterState(this);
          SoldState = new SoldState(this);
          SoldOutState = new SoldOutState(this);
-         WinnerState = new WinnerState(this);
 
          NumberOfGumballs = numberOfGumballs;
          CurrentState = numberOfGumballs > 0 ? NoQuarterState : SoldOutState;
@@ -85,7 +116,38 @@ namespace GumballMachine
       /// when the customer deserves 2 gumballs because they have won the
       /// 1-in-10 game, where every 10th customer gets 2 gumballs.
       /// </summary>
-      public IState WinnerState { get; }
+      public virtual IState WinnerState
+         => throw new NotImplementedException();
+
+      /// <summary>
+      /// Refills the gumball machine by adding <paramref name="count" /> more gumballs.
+      /// </summary>
+      /// <param name="count">
+      /// (Required.) An integer that specifies the number of gumballs to add.
+      /// </param>
+      /// <remarks>
+      /// The <paramref name="count" /> parameter must be 1 or higher.
+      /// </remarks>
+      /// <exception cref="T:System.ArgumentOutOfRangeException">
+      /// Thrown if the <paramref name="count" /> parameter is zero or negative.
+      /// </exception>
+      public void Refill(int count)
+      {
+         if (count <= 0)
+            throw new ArgumentOutOfRangeException(
+               Resources.Error_CountMustBePositive
+            );
+
+         NumberOfGumballs += count;
+
+         SetState(
+            NoQuarterState
+         ); // reset machine to allow getting gumballs again
+
+         Console.WriteLine(
+            $"Gumball machine refilled.  Inventory: {NumberOfGumballs} gumballs."
+         );
+      }
 
       /// <summary>
       /// Performs the action of releasing the gumball for the purchaser and
@@ -124,36 +186,6 @@ namespace GumballMachine
       /// </summary>
       public void InsertQuarter()
          => CurrentState?.InsertQuarter();
-
-      /// <summary>
-      /// Refills the gumball machine by adding <paramref name="count" /> more gumballs.
-      /// </summary>
-      /// <param name="count">
-      /// (Required.) An integer that specifies the number of gumballs to add.
-      /// </param>
-      /// <remarks>
-      /// The <paramref name="count" /> parameter must be 1 or higher.
-      /// </remarks>
-      /// <exception cref="T:System.ArgumentOutOfRangeException">
-      /// Thrown if the <paramref name="count" /> parameter is zero or negative.
-      /// </exception>
-      public void Refill(int count)
-      {
-         if (count <= 0)
-            throw new ArgumentOutOfRangeException(
-               Resources.Error_CountMustBePositive
-            );
-
-         NumberOfGumballs += count;
-
-         SetState(
-            NoQuarterState
-         ); // reset machine to allow getting gumballs again
-
-         Console.WriteLine(
-            $"Gumball machine refilled.  Inventory: {NumberOfGumballs} gumballs."
-         );
-      }
 
       /// <summary>
       /// Returns a string that represents the current object.

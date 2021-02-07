@@ -40,7 +40,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GamifiedGumballMachineContext.cs" />
     <Compile Include="GumballMachineContext.cs" />
+    <Compile Include="GumballMachineFactory.cs" />
     <Compile Include="HasQuarterState.cs" />
     <Compile Include="IGumballMachine.cs" />
     <Compile Include="IState.cs" />
