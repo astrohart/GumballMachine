@@ -23,13 +23,23 @@ namespace GumballMachine
       /// </summary>
       public override void Dispense()
       {
-         Console.WriteLine(
-            "You're a winner!  Every 10th customer gets 2 gumballs."
-         );
-         if (_machine.NumberOfGumballs >= 2)
-            _machine
-               .ReleaseGumball(); // give the winner a 2nd gumball if there are more available
-         base.Dispense();
+         _machine.ReleaseGumball();
+         if (_machine.NumberOfGumballs == 0)
+         {
+            _machine.SetState(_machine.SoldOutState);
+         }
+         else if (_machine.NumberOfGumballs > 0)
+         {
+            _machine.ReleaseGumball();
+            Console.WriteLine(
+               "YOU'RE A WINNER! You got two gumballs for your quarter."
+            );
+            _machine.SetState(
+               _machine.NumberOfGumballs > 0
+                  ? _machine.NoQuarterState
+                  : _machine.SoldOutState
+            );
+         }
       }
    }
 }

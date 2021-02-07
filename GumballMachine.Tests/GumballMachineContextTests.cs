@@ -10,6 +10,52 @@ namespace GumballMachine.Tests
    public class GumballMachineContextTests
    {
       /// <summary>
+      /// TODO: Add unit test documentation here
+      /// </summary>
+      [Test]
+      public void Test_GumballMachine_OneInTenWinnerGame_Works()
+      {
+         const int INITIAL_GUMBALL_AMOUNT = 5;
+
+         // Start with a gumball machine containing 5 gumballs
+         var machine = new GumballMachineContext(INITIAL_GUMBALL_AMOUNT);
+
+         Console.WriteLine(machine); // print out the state of the machine
+
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+
+         Console.WriteLine(machine); // print out the state of the machine
+
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+
+         Console.WriteLine(machine); // print out the state of the machine
+
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+
+         Console.WriteLine(machine); // print out the state of the machine
+
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+         machine.InsertQuarter(); // throw a quarter in...
+         machine.TurnCrank(); // turn the crank; we should get one gumball.
+
+         Console.WriteLine(machine); // print out the state of the machine
+      }
+
+      /// <summary>
       /// Asserts that the gumball machine works for normal use cases.
       /// </summary>
       [Test]

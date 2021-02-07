@@ -7,10 +7,9 @@ namespace GumballMachine
    /// </summary>
    public class HasQuarterState : StateBase
    {
-      /// <summary>Returns a string that represents the current object.</summary>
-      /// <returns>A string that represents the current object.</returns>
-      public override string ToString()
-         => "Machine has a quarter in the slot.";
+      private readonly Random randomWinnerGenerator = new Random(
+         Guid.NewGuid().GetHashCode()
+      );
 
       /// <summary>
       /// Constructs a new instance of <see cref="T:GumballMachine.StateBase" />
@@ -44,12 +43,24 @@ namespace GumballMachine
          => Console.WriteLine("You can't insert another quarter.");
 
       /// <summary>
+      /// Returns a string that represents the current object.
+      /// </summary>
+      /// <returns>
+      /// A string that represents the current object.
+      /// </returns>
+      public override string ToString()
+         => "Machine has a quarter in the slot.";
+
+      /// <summary>
       /// Turns the crank of the gumball machine.
       /// </summary>
       public override void TurnCrank()
       {
          Console.WriteLine("You turned the crank...");
-         _machine.SetState(_machine.SoldState);
+         var randomWinner = randomWinnerGenerator.Next(10);
+         _machine.SetState(
+            randomWinner == 0 && _machine.NumberOfGumballs > 1 ? _machine.WinnerState : _machine.SoldState
+         );
       }
    }
 }

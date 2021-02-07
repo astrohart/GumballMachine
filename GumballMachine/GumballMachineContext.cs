@@ -93,12 +93,8 @@ namespace GumballMachine
       /// </summary>
       public void ReleaseGumball()
       {
-         if (NumberOfGumballs == 0
-         ) // cannot release a gumball if there are none
-            return;
-
          Console.WriteLine("A gumball comes rolling out of the slot...");
-         NumberOfGumballs--;
+         if (NumberOfGumballs > 0) NumberOfGumballs--;
       }
 
       /// <summary>
@@ -187,8 +183,7 @@ namespace GumballMachine
       public void TurnCrank()
       {
          CurrentState?.TurnCrank();
-         if (CurrentState == SoldState)
-            CurrentState?.Dispense();
+         CurrentState?.Dispense();
       }
    }
 }

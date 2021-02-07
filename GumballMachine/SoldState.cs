@@ -44,9 +44,7 @@ namespace GumballMachine
       /// Inserts a quarter into the gumball machine.
       /// </summary>
       public override void InsertQuarter()
-         => Console.WriteLine(
-            "Please wait.  We're already giving you a gumball."
-         );
+         => Console.WriteLine("Please wait.  We're already giving you a gumball.");
 
       /// <summary>
       /// Returns a string that represents the current object.
