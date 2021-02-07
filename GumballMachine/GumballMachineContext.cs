@@ -157,8 +157,9 @@ namespace GumballMachine
          switch (State)
          {
             case HAS_QUARTER: // There already is a quarter in the machine.
-               Console.WriteLine("Quarter returned.");
-               State = NO_QUARTER;
+               Console.WriteLine("You turned the crank, so you get a gumball.");
+               State = SOLD;
+               Dispense();
                break;
 
             case NO_QUARTER: // A quarter isn't in the machine.
@@ -177,6 +178,48 @@ namespace GumballMachine
                Console.WriteLine(
                   "Turning the crank twice doesn't get you another gumball."
                );
+               break;
+         }
+      }
+
+      /// <summary>
+      /// Called to dispense a gumball.
+      /// </summary>
+      public void Dispense()
+      {
+         switch (State)
+         {
+            case HAS_QUARTER: // There already is a quarter in the machine.
+               Console.WriteLine("Quarter returned.");
+               State = NO_QUARTER;
+               break;
+
+            case NO_QUARTER: // A quarter isn't in the machine.
+               Console.WriteLine(
+                  "You need to turn the crank."
+               );
+               break;
+
+            case SOLD_OUT: // No more gumballs are left.
+               Console.WriteLine(
+                  "No gumball dispensed."
+               );
+               break;
+
+            case SOLD: // A gumball was dispensed.
+               Console.WriteLine(
+                  "A gumball comes rolling out the slot!"
+               );
+               if (Count == 0)
+               {
+                  Console.WriteLine("Oops!  We've run out of gumballs!");
+                  State = SOLD_OUT;
+               }
+               else
+               {
+                  State = NO_QUARTER;
+               }
+
                break;
          }
       }
