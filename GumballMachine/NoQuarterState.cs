@@ -8,7 +8,9 @@ namespace GumballMachine
    public class NoQuarterState : StateBase
    {
       /// <summary>
-      /// Constructs a new instance of <see cref="T:GumballMachine.NoQuarterState" />
+      /// Constructs a new instance of
+      /// <see
+      ///    cref="T:GumballMachine.NoQuarterState" />
       /// and returns a reference to it.
       /// </summary>
       /// <param name="machine">
@@ -33,7 +35,10 @@ namespace GumballMachine
       /// Inserts a quarter into the gumball machine.
       /// </summary>
       public override void InsertQuarter()
-         => throw new NotImplementedException();
+      {
+         Console.WriteLine("You inserted a quarter.");
+         _machine.SetState(_machine.getHasQuarterState());
+      }
 
       /// <summary>
       /// Turns the crank of the gumball machine.
