@@ -33,6 +33,12 @@ namespace GumballMachine
       public int State { get; set; }
 
       /// <summary>
+      /// Gets the count of gumballs.
+      /// </summary>
+      public int Count { get; private set; } = 0;
+      
+
+      /// <summary>
       /// Entry point of the program.
       /// </summary>
       public static void Main()
