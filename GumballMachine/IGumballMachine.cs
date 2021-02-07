@@ -52,6 +52,16 @@
       IState SoldState { get; }
 
       /// <summary>
+      /// Gets a reference to an instance of an object that implements the
+      /// <see
+      ///    cref="T:GumballMachine.IState" />
+      /// interface that defines the behaviors
+      /// when the customer deserves 2 gumballs because they have won the
+      /// 1-in-10 game, where every 10th customer gets 2 gumballs.
+      /// </summary>
+      IState WinnerState { get; }
+
+      /// <summary>
       /// Performs the action of releasing the gumball for the purchaser and
       /// updating our inventory.
       /// </summary>
