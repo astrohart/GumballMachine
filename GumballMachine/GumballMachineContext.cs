@@ -157,7 +157,8 @@ namespace GumballMachine
       {
          var result = string.Empty;
 
-         result = "Mighty Gumball, Inc." + Environment.NewLine;
+         result = Environment.NewLine;
+         result += "Mighty Gumball, Inc." + Environment.NewLine;
          result += "C#-enabled Standing Gumball Model #2021" +
                    Environment.NewLine;
          result += $"Inventory: {Count} gumballs" + Environment.NewLine;
