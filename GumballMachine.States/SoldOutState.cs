@@ -45,6 +45,11 @@ namespace GumballMachine.States
       }
 
       /// <summary>
+      /// Refills the machine with more gumballs.
+      /// </summary>
+      public override void Refill() { }
+
+      /// <summary>
       /// Returns a string that represents the current object.
       /// </summary>
       /// <returns>
