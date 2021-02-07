@@ -6,7 +6,7 @@ namespace GumballMachine
    /// <summary>
    /// Represents a Gumball Machine.
    /// </summary>
-   public class GumballMachineContext : IGumballMachine
+   public class GumballMachineContext
    {
       /// <summary>
       /// A quarter has been inserted in the machine.
