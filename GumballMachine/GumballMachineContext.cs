@@ -185,7 +185,7 @@ namespace GumballMachine
       /// <summary>
       /// Called to dispense a gumball.
       /// </summary>
-      public void Dispense()
+      private void Dispense()
       {
          switch (State)
          {
@@ -195,21 +195,15 @@ namespace GumballMachine
                break;
 
             case NO_QUARTER: // A quarter isn't in the machine.
-               Console.WriteLine(
-                  "You need to turn the crank."
-               );
+               Console.WriteLine("You need to turn the crank.");
                break;
 
             case SOLD_OUT: // No more gumballs are left.
-               Console.WriteLine(
-                  "No gumball dispensed."
-               );
+               Console.WriteLine("No gumball dispensed.");
                break;
 
             case SOLD: // A gumball was dispensed.
-               Console.WriteLine(
-                  "A gumball comes rolling out the slot!"
-               );
+               Console.WriteLine("A gumball comes rolling out the slot!");
                if (Count == 0)
                {
                   Console.WriteLine("Oops!  We've run out of gumballs!");
