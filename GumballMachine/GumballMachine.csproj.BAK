@@ -1,19 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C6C7A124-0878-4798-9660-DEE3BAC51BB2}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GumballMachine.Interfaces</RootNamespace>
-    <AssemblyName>GumballMachine.Interfaces</AssemblyName>
+    <ProjectGuid>{CFE036A9-6DF6-4DDE-B4EE-1A5952509F32}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GumballMachine</RootNamespace>
+    <AssemblyName>GumballMachine</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,20 +32,46 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>GumballMachine.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalAspects.cs" />
-    <Compile Include="IGumballMachine.cs" />
-    <Compile Include="IGumballMachineActions.cs" />
+    <Compile Include="GamifiedGumballMachineContext.cs" />
+    <Compile Include="GumballMachineContext.cs" />
+    <Compile Include="GumballMachineFactory.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GumballMachine.Interfaces\GumballMachine.Interfaces.csproj">
+      <Project>{C6C7A124-0878-4798-9660-DEE3BAC51BB2}</Project>
+      <Name>GumballMachine.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GumballMachine.States.Interfaces\GumballMachine.States.Interfaces.csproj">
       <Project>{0A242AD5-4D6E-4545-B592-853B98AA79F7}</Project>
       <Name>GumballMachine.States.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GumballMachine.States\GumballMachine.States.csproj">
+      <Project>{E7417ECE-7818-48DE-B60C-69D93883A47A}</Project>
+      <Name>GumballMachine.States</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
